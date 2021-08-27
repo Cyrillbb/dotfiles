@@ -48,7 +48,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
--- beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+-- beautiful.init(gears.filesystem.get_themes_dir() .. "zenburn/theme.lua")
 beautiful.init("/home/falloppio/.config/awesome/themes/nord/theme.lua")
 local bling = require("bling")
 
@@ -213,9 +213,8 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
     
     -- Each screen has its own tag table.
-    -- awful.tag({ "死", "死", "死", "死", "死", "死", "死", "死", "死" }, s, awful.layout.layouts[1])    
-    awful.tag({ "A", "W", "E", "S", "O", "M", "E", "W", "M" }, s, awful.layout.layouts[1])
-    -- awful.tag({ "✇", "✇", "✇", "✇", "✇", "✇", "✇", "✇", "✇" }, s, awful.layout.layouts[1])
+    -- awful.tag({ "A", "W", "E", "S", "O", "M", "E", "W", "M" }, s, awful.layout.layouts[1])
+    awful.tag({ "", "", "", "", "", "", "", "", "" }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -345,11 +344,34 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox = awful.wibar({ position = "top", screen = s, height = 30 })
 
     -- Add widgets to the wibox
+
+    local month_calendar = awful.widget.calendar_popup.month({
+        opacity = 0.95,
+        margin = 10,
+        style_month = {
+            border_width = 2,
+        },
+        style_header = {
+            border_width = 0,
+        },
+        style_weekday = {
+            border_width = 0,
+        },
+        style_normal = {
+            border_width = 0,
+        },
+        style_focus = {
+            border_width = 0
+        }
+    })
+    month_calendar:attach( mytextclock, "tr" )
+
+
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
+            -- mylauncher,
             s.mytaglist,
             s.mypromptbox,
         },
