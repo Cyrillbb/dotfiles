@@ -14,6 +14,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+local volume_widget = require('awesome-wm-widgets.volume-widget.volume')
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -214,7 +215,8 @@ awful.screen.connect_for_each_screen(function(s)
     
     -- Each screen has its own tag table.
     -- awful.tag({ "A", "W", "E", "S", "O", "M", "E", "W", "M" }, s, awful.layout.layouts[1])
-    awful.tag({ "", "", "", "", "", "", "", "", "" }, s, awful.layout.layouts[1])
+    -- awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    awful.tag(beautiful.taglist_object, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -342,7 +344,6 @@ awful.screen.connect_for_each_screen(function(s)
     }
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = 30 })
-
     -- Add widgets to the wibox
 
     local month_calendar = awful.widget.calendar_popup.month({
@@ -365,8 +366,7 @@ awful.screen.connect_for_each_screen(function(s)
         }
     })
     month_calendar:attach( mytextclock, "tr" )
-
-
+    -- wibox.container.background ([widget[, bg[, shape]]]) 	
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
@@ -378,12 +378,81 @@ awful.screen.connect_for_each_screen(function(s)
         wibox.container.margin(s.mytasklist, 5, 5, 5, 5),
         -- s.mytasklist, -- Middle widget
         { -- Right widgets
+            spacing = -12,
             layout = wibox.layout.fixed.horizontal,
-            mykeyboardlayout,
-            -- wibox.widget.systray(),
             wibox.layout.margin(wibox.widget.systray(), 4, 4, 4, 4),
-            mytextclock,
-            -- s.mylayoutbox,
+            {
+                {
+                    markup = ' ',
+                    widget = wibox.widget.textbox
+                },
+                left   = 6,
+                right  = 18,
+                -- top    = 3,
+                -- bottom = 3,
+                widget = wibox.container.margin
+            },
+            {
+                {
+                    {
+                        {
+                            volume_widget(), 
+                            left   = 15,
+                            right  = 25,
+                            top    = 0,
+                            -- bottom = 3,
+                            widget = wibox.container.margin
+                        },
+                        direction = 'south',
+                        widget = wibox.container.rotate,
+                    },
+                    bg     = beautiful.tray_sound_bg,
+                    shape = gears.shape.powerline,
+                    widget = wibox.container.background,
+                },
+                direction = 'south',
+                widget = wibox.container.rotate,
+            },
+            {
+                    bg     = beautiful.tray_sound_bg,
+                    shape = gears.shape.powerline,
+                    widget = wibox.container.background,
+            },
+            {
+                {
+                    {
+                        {
+                            mytextclock, 
+                            left   = 15,
+                            right  = 15,
+                            top    = 0.55,
+                            -- bottom = 0.5,
+                            widget = wibox.container.margin
+                        },
+                        direction = 'south',
+                        widget = wibox.container.rotate,
+                    },
+                    bg     = beautiful.tray_clock_bg,
+                    shape = gears.shape.powerline,
+                    widget = wibox.container.background,
+                },
+                direction = 'south',
+                widget = wibox.container.rotate,
+            },
+            {
+                
+                    left   = 12,
+                    right  = 12,
+                    -- top    = 3,
+                    -- bottom = 3,
+                    widget = wibox.container.margin
+                
+                
+            },
+            -- volume_widget(),
+            -- mytextclock,
+            mykeyboardlayout
+
         },
     }
 end)
@@ -736,7 +805,7 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 --Autostart
 -- awful.util.spawn("~/init.sh")
 awful.util.spawn("sh /home/falloppio/init.sh")
-awful.spawn.with_shell("compton")
+-- awful.spawn.with_shell("compton")
 awful.spawn.with_shell("nitrogen --restore")
 -- awful.spawn.with_shell("nm-applet")
 -- awful.spawn.with_shell("volumeicon")

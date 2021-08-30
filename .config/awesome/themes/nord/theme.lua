@@ -1,9 +1,4 @@
--------------------------------
---  "Nord" awesome theme     --
---  by hmix adapted from     --
---  zenburn theme            --
---    By Adrian C. (anrxc)   --
--------------------------------
+
 
 -- local themes_path = require("gears.filesystem").get_themes_dir()
 local themes_path = "/home/falloppio/.config/awesome/themes/"
@@ -56,27 +51,6 @@ theme.border_marked = "#D08770"
 -- {{{ Titlebars
 theme.titlebar_bg_focus   = "#3B4252"
 theme.titlebar_bg_normal  = "#2E3440"
--- }}}
-
--- There are other variable sets
--- overriding the default one when
--- defined, the sets are:
--- [taglist|tasklist]_[bg|fg]_[focus|urgent|occupied|empty|volatile]
--- titlebar_[normal|focus]
--- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
--- Example:
---theme.taglist_bg_focus = "#D08770"
--- }}}
-
--- {{{ Widgets
--- You can add as many variables as
--- you wish and access them by using
--- beautiful.variable in your rc.lua
---theme.fg_widget        = "#A3BE8C"
---theme.fg_center_widget = "#8FBCBB"
---theme.fg_end_widget    = "#BF616A"
---theme.bg_widget        = "#434C5E"
---theme.border_widget    = "#3B4252"
 -- }}}
 
 -- {{{ Mouse finder
@@ -144,6 +118,12 @@ theme.systray_icon_spacing = 5
 -- theme.taglist_text_focused  = {"", "", "", "", "", "", "", "", ""}
 -- theme.taglist_text_urgent   = {"", "", "", "", "", "", "", "", ""}
 
+theme.taglist_object = { "", "", "", "", "", "", "", "", "" }
+
+theme.tray_sound_bg = theme.nord11
+
+theme.tray_clock_bg = theme.nord9
+
 theme.taglist_font = "tomoe 20"
 -- theme.taglist_font = "awesomewm-font 13"
 theme.taglist_bg_focus = theme.bg_normal
@@ -170,6 +150,8 @@ theme.tag_preview_widget_margin = 10                 -- The margin of the widget
 
 
 theme.tasklist_font = "Ubuntu Regular 10"
+
+
 
 return theme
 
